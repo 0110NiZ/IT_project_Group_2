@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Forum</title>
+    <style>/*css style*/  /*Set default styles for all elements*/
+      * {
+        margin: 0;
+        padding: 0;
+
+        background-color: #f7f0d5;
+      }
+      h1{    /*style for heading*/
+        color:rgb(126, 33, 33);
+        margin: 20px; 
+        font-size: 50px;
+        text-align: center;
+      }
+      ul {    /*remove list style*/
+        list-style: none;
+      }
+      .w {   /*Set width and center align the forum container */
+        width: 900px;
+        margin: 0 auto;
+      }
+      .controls textarea {  /*Styles for the text area and controls */
+        width: 878px;
+        height: 100px;
+        resize: none;
+        border-radius: 10px;
+        outline: none;
+        padding-left: 20px;
+        padding-top: 10px;
+        font-size: 18px;
+      }
+      .controls {
+        overflow: hidden;
+      }
+      .controls div {
+        float: right;
+      }
+      .controls div span {
+        color: #666;
+      }
+      .controls div .useCount {
+        color: rgb(126, 33, 33);
+      }
+      .controls div button {
+        width: 100px;
+        outline: none;
+        border: none;
+        background: rgb(0, 132, 255);
+        height: 30px;
+        cursor: pointer;
+        color: #000000;
+        font: bold 14px "宋体";
+        transition: all 0.5s;
+      }
+      .controls div button:hover {
+        background: rgb(0, 225, 255);
+      }
+      .controls div button:disabled {
+        background: rgba(0, 225, 255, 0.5);
+      }
+      .contentList {  /* Styles for the list of comments */
+        margin-top: 50px;
+      }
+      .contentList li {
+        padding: 20px 0;
+        border-bottom: 1px dashed #ccc;
+        position: relative;
+      }
+      .contentList li .info {
+        position: relative;
+      }
+      .contentList li .info span {
+        position: absolute;
+        top: 0px;
+        left: 100px;
+      }
+      .contentList li .info p {
+        position: absolute;
+        top: 40px;
+        left: 100px;
+        color: #060202;
+        font-size: 12px;
+      }
+      .contentList img {
+        width: 80px;
+        border-radius: 50%;
+      }
+      .contentList li .content {
+        padding-left: 100px;
+        color: #666;
+        word-break: break-all;
+      }
+      .contentList li .the_del {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 28px;
+        cursor: pointer;
+      }
+      .s{    /* Styles for star rating */
+        display: inline-block;
+      }
+      .liclass1{
+        width: 14px;
+        height: 28px;
+        float:left;
+        caret-color: transparent;
+        background: url(picture/star.gif) no-repeat 0px 0px;
+        list-style: none;
+      }
+      .liclass2{
+        width: 14px;
+        height: 28px;
+        float:left;
+        caret-color: transparent;
+        background: url(picture/star.gif) no-repeat -14px 0px;
+        list-style: none;
+      }
+      .liclass3{
+        width: 14px;
+        height: 28px;
+        float:left;
+        caret-color: transparent;
+        background: url(picture/star.gif) no-repeat 0px -28px;
+        list-style: none;
+      }
+      .liclass4{
+        width: 14px;
+        height: 28px;
+        float:left;
+        caret-color: transparent;
+        background: url(picture/star.gif) no-repeat -14px -28px;
+        list-style: none;
+      }
+      .astar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      h3{  /* Styles for heading */
+        text-align: center; 
+      }
+      .bt{/* Styles for button*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Forum</h1><!-- Forum header -->
+    <h3>Please leave your opinion or recommendation on the eight major Chinese cuisines.</h3>
+    <div class="w"><!-- Forum container -->
+      <div class="controls"><!-- Text area and controls -->
+        <textarea
+          placeholder="Say something..."
+          id="area"
+          cols="30"
+          rows="10"
+          maxlength="200"
+        ></textarea>
+        <div>
+          <span class="useCount" id="useCount">0</span><!-- Character count -->
+          <span>/</span>
+          <span>200</span>
+          <button id="send">Release</button><!-- Submit button -->
+        </div>
+      </div>
+      <div class="contentList">
+        <ul id="list"></ul>
+      </div>
+    </div>
+    <br><br><br>
+    <h3>Please rate our website with stars!</h3>
+    <div class="astar">  
+      <div id="div_star">
+        <ul class="ulclass">
+            <li class="s" id="0"></li><!-- Star rating -->
+            <li class="s" id="1"></li>
+            <li class="s" id="2"></li>
+            <li class="s" id="3"></li>
+            <li class="s" id="4"></li>
+            <li class="s" id="5"></li>
+            <li class="s" id="6"></li>
+            <li class="s" id="7"></li>
+            <li class="s" id="8"></li>
+            <li class="s" id="9"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bt">
+      <br><br><br><br><br><br><a href="firstpage.html">Back to Main Page</a>
+    </div>
+    
+    <script>
+      var dataArr1 = {imgSrc: "picture/ren.png" };// Declare and initialize variables
+      var dataArr2 = localStorage.getItem('username1');
+      var text = document.querySelector('#area');
+      var btn_send = document.querySelector('#send'); 
+      var count = document.querySelector('#useCount');
+      var uls = document.querySelector('#list');
+      text.oninput = function(){ // Event handler for input event on the 'text' element
+        count.innerHTML = this.value.trim().length;
+      }
+      btn_send.onclick = function(){  // Event handler for click event on the 'btn_send' element
+        if(text.value.length == 0){
+          alert('Please enter the content first and then click the publish button');
+        }
+        let new_li = document.createElement('li');// Create a new list item element and populate it with content
+        new_li.innerHTML = `
+          <div class="info">
+            <img class="userpic" src=${dataArr1.imgSrc} />
+            <span class="username">${dataArr2}</span>
+            <p class="send-time">${new Date().toLocaleString()}</p>
+          </div>
+          <div class="content">${text.value + '\n'}</div>
+        `;
+        console.log(new_li);
+        uls.appendChild(new_li);
+
+        text.value = '';
+        count.innerHTML = 0;
+      }
+      window.onload = function(){  // Event handler for window's load event
+            var ulclass = document.querySelector(".ulclass");
+            var lis = ulclass.getElementsByTagName("li");
+            for(var i=0;i<lis.length;i++){  // Loop through the list items and apply classes and event handlers
+                if(i%2==0){
+                    lis[i].className = "liclass1";
+                } else {
+                    lis[i].className = "liclass2";
+                }
+                lis[i].onmouseover = function(){
+                    for(var j=0;j<=Number(this.id);j++){  // Event handler for mouseover event on list items
+                        if(j%2==0){
+                            lis[j].className="liclass3";
+                        } else {
+                            lis[j].className="liclass4";
+                        }
+                    }
+                }
+                lis[i].onmouseout = function(){  // Event handler for mouseout event on list items
+                    for(var j=0;j<lis.length;j++){
+                        if(j%2==0){
+                            lis[j].className="liclass1";
+                        } else {
+                            lis[j].className="liclass2";
+                        }
+                    }
+                }
+                lis[i].onclick = function(){   // Event handler for click event on list items
+                    for(var j=0;j<lis.length;j++){
+                        lis[j].onmouseover = null;
+                        lis[j].onmouseout = null;
+                        lis[j].onclick = null;
+                    }
+                    alert("Total score:"+(Number(this.id)+1)/2 +" point");// Pop-up window to show overall score
+                }
+            }
+        }  
+    </script>
+  </body>
+</html>
