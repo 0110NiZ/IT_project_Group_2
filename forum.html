@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Forum</title>
+    <link rel="forum" href="css/forum.css">
+    <script src="js/forum.js"></script>
+  </head>
+  <body>
+    <h1>Forum</h1><!-- Forum header -->
+    <h3>Please leave your opinion or recommendation on the eight major Chinese cuisines.</h3>
+    <div class="w"><!-- Forum container -->
+      <div class="controls"><!-- Text area and controls -->
+        <textarea
+          placeholder="Say something..." id="area" cols="30" rows="10" maxlength="200"
+        ></textarea>
+        <div>
+          <span class="useCount" id="useCount">0</span><!-- Character count -->
+          <span>/</span>
+          <span>200</span>
+          <button id="send">Release</button><!-- Submit button -->
+        </div>
+      </div>
+      <div class="contentList">
+        <ul id="list"></ul>
+      </div>
+    </div>
+    <br><br><br>
+    <h3>Please rate our website with stars!</h3>
+    <div class="astar">  
+      <div id="div_star">
+        <ul class="ulclass">
+            <li class="s" id="0"></li><!-- Star rating -->
+            <li class="s" id="1"></li>
+            <li class="s" id="2"></li>
+            <li class="s" id="3"></li>
+            <li class="s" id="4"></li>
+            <li class="s" id="5"></li>
+            <li class="s" id="6"></li>
+            <li class="s" id="7"></li>
+            <li class="s" id="8"></li>
+            <li class="s" id="9"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bt">
+      <br><br><br><br><br><br><a href="firstpage.html">Back to Main Page</a>
+    </div>
+    
+    
+  </body>
+</html>
